@@ -7,3 +7,5 @@ program
     .helpOption('-h, --help', 'display help for command');
     
 program.parse(process.argv);
+
+export default genDiff;
