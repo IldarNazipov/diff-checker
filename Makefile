@@ -1,3 +1,6 @@
+install: install-deps
+	npx simple-git-hooks
+
 lint:
 	npx eslint .
 
