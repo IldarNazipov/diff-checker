@@ -8,12 +8,10 @@ const genDiff = (filepath1, filepath2) => {
     const fileContent = readFileSync(absolutePath, 'utf-8');
     return JSON.parse(fileContent);
   };
-
   const obj1 = getObjectFromFile(filepath1);
   const obj2 = getObjectFromFile(filepath2);
   const combinedKeys = _.union(Object.keys(obj1), Object.keys(obj2));
-
-  const diffArray = combinedKeys.reduce((acc, key) => {
+  const arrayToSort = combinedKeys.reduce((acc, key) => {
     if (!(key in obj1)) {
       acc.push({
         operator: '+', filename: filepath2, key, value: obj2[key],
@@ -36,11 +34,8 @@ const genDiff = (filepath1, filepath2) => {
     }
     return acc;
   }, []);
-
-  const sortedDiff = _.sortBy(diffArray, ['key', 'filename']);
+  const sortedDiff = _.sortBy(arrayToSort, ['key', 'filename']);
   const resultString = sortedDiff.map(({ operator, key, value }) => `  ${operator} ${key}: ${value}`);
-
   return `{\n${resultString.join('\n')}\n}`;
 };
-
 export default genDiff;
