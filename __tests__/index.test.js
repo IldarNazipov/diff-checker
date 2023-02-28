@@ -15,6 +15,10 @@ test('gendiff', () => {
 });
 
 test('parse', () => {
-  expect(parse(getFixturePath('file1.yml'))).toEqual({ host: 'hexlet.io', timeout: 50, proxy: '123.234.53.22', follow: false });
-  expect(parse(getFixturePath('file2.yml'))).toEqual({ timeout: 20, verbose: true, host: 'hexlet.io' });
+  expect(parse(getFixturePath('file1.yml'))).toEqual({
+    host: 'hexlet.io', timeout: 50, proxy: '123.234.53.22', follow: false,
+  });
+  expect(parse(getFixturePath('file2.yml'))).toEqual({
+    timeout: 20, verbose: true, host: 'hexlet.io',
+  });
 });
