@@ -10,7 +10,7 @@ export default (filepath) => {
   if (format === '.json') {
     parse = JSON.parse;
   } else if (format === '.yml') {
-    parse = yaml.safeLoad;
+    parse = yaml.load;
   }
 
   return parse(fileContent);
