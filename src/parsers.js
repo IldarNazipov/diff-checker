@@ -1,17 +1,20 @@
-import path from 'path';
 import yaml from 'js-yaml';
+import path from 'path';
 import { readFileSync } from 'fs';
 
-export default (filepath) => {
-  const format = path.extname(filepath);
+const readFile = (filepath) => {
   const absolutePath = path.resolve(process.cwd(), '__fixtures__', filepath);
-  const fileContent = readFileSync(absolutePath, 'utf-8');
-  let parse;
-  if (format === '.json') {
-    parse = JSON.parse;
-  } else if (format === '.yml') {
-    parse = yaml.load;
-  }
-
-  return parse(fileContent);
+  return readFileSync(absolutePath, 'utf-8');
 };
+
+const parse = (file, extension) => {
+  let parseMethod;
+  if (extension === '.json') {
+    parseMethod = JSON.parse;
+  } else if (extension === '.yml' || extension === '.yaml') {
+    parseMethod = yaml.load;
+  }
+  return parseMethod(file);
+};
+
+export { parse, readFile };
