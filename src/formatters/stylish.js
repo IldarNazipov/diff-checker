@@ -1,49 +1,44 @@
-import _ from 'lodash';
-
-const stringify = (data, depth, indentChar) => {
-  if (!_.isObject(data)) {
+const stringifyStylish = (data, depth, indentChar) => {
+  if (typeof data !== 'object' || data === null) {
     return String(data);
   }
   const currentIndent = indentChar.repeat((depth + 1) * 4);
   const bracketIndent = indentChar.repeat(depth * 4);
   const lines = Object
     .entries(data)
-    .map(([key, value]) => `${currentIndent}${key}: ${stringify(value, depth + 1, indentChar)}`);
+    .map(([key, value]) => `${currentIndent}${key}: ${stringifyStylish(value, depth + 1, indentChar)}`);
 
   return ['{', ...lines, `${bracketIndent}}`].join('\n');
 };
 
-const makeStylish = (diff, replacer = ' ') => {
-  const operator = {
-    added: '+',
-    deleted: '-',
-    notchanged: ' ',
-  };
+const makeStylish = (diff, indentChar = ' ') => {
   const iter = (tree, depth) => tree.map((node) => {
-    const indent = replacer.repeat(depth * 4);
+    const indent = indentChar.repeat(depth * 4);
     const operatorIndent = indent.slice(2);
-
-    const makeLine = (oper, value) => `${operatorIndent}${oper} ${node.key}: ${stringify(value, depth, replacer)}`;
-
+    const operators = {
+      added: '+',
+      deleted: '-',
+      notChanged: ' ',
+    };
     switch (node.state) {
       case 'added':
-        return makeLine(operator.added, node.value);
+        return `${operatorIndent}${operators.added} ${node.key}: ${stringifyStylish(node.value, depth, indentChar)}`;
       case 'deleted':
-        return makeLine(operator.deleted, node.value);
+        return `${operatorIndent}${operators.deleted} ${node.key}: ${stringifyStylish(node.value, depth, indentChar)}`;
       case 'notChanged':
-        return makeLine(operator.notchanged, node.value);
+        return `${operatorIndent}${operators.notChanged} ${node.key}: ${stringifyStylish(node.value, depth, indentChar)}`;
       case 'changed':
-        return [`${makeLine(operator.deleted, node.value1)}`,
-          `${makeLine(operator.added, node.value2)}`].join('\n');
+        return [`${operatorIndent}${operators.deleted} ${node.key}: ${stringifyStylish(node.value1, depth, indentChar)}`,
+          `${operatorIndent}${operators.added} ${node.key}: ${stringifyStylish(node.value2, depth, indentChar)}`].join('\n');
       case 'nested':
         return `${indent}${node.key}: ${['{', ...iter(node.value, depth + 1), `${indent}}`].join('\n')}`;
       default:
-        return '';
+        throw new Error(`Error: unknown state '${node.state}'`);
     }
   });
 
-  const stylishDiff = iter(diff, 1);
-  return ['{', ...stylishDiff, '}'].join('\n');
+  const stylishResult = iter(diff, 1);
+  return ['{', ...stylishResult, '}'].join('\n');
 };
 
 export default makeStylish;
