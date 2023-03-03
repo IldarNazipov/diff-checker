@@ -1,14 +1,16 @@
 import makeStylish from './stylish.js';
 import makePlain from './plain.js';
+import makeJSON from './json.js';
 
-const chooseFormatter = (format, diff) => {
+export default (format, diff) => {
   if (format === 'stylish') {
     return makeStylish(diff);
   }
   if (format === 'plain') {
     return makePlain(diff);
   }
+  if (format === 'json') {
+    return makeJSON(diff);
+  }
   throw new Error(`unknown format '${format}', please try 'stylish' or 'plain'`);
 };
-
-export default chooseFormatter;

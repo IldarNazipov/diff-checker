@@ -11,7 +11,7 @@ const stringifyStylish = (data, depth, indentChar) => {
   return ['{', ...lines, `${bracketIndent}}`].join('\n');
 };
 
-const makeStylish = (diff, indentChar = ' ') => {
+export default (diff, indentChar = ' ') => {
   const iter = (tree, depth) => tree.map((node) => {
     const indent = indentChar.repeat(depth * 4);
     const operatorIndent = indent.slice(2);
@@ -40,5 +40,3 @@ const makeStylish = (diff, indentChar = ' ') => {
   const stylishResult = iter(diff, 1);
   return ['{', ...stylishResult, '}'].join('\n');
 };
-
-export default makeStylish;

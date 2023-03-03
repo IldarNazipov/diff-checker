@@ -3,7 +3,7 @@ import compareObjects from './compareObjects.js';
 import { parse, readFile } from './parsers.js';
 import chooseFormatter from './formatters/index.js';
 
-const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
+export default (filepath1, filepath2, formatName = 'stylish') => {
   const fileContent1 = readFile(filepath1);
   const fileContent2 = readFile(filepath2);
   const fileExtension1 = path.extname(filepath1);
@@ -13,4 +13,3 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const sortedObjectsArray = compareObjects(obj1, obj2);
   return chooseFormatter(formatName, sortedObjectsArray);
 };
-export default genDiff;

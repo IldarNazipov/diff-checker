@@ -8,7 +8,7 @@ const stringifyPlain = (value) => {
   return value;
 };
 
-const makePlain = (diff) => {
+export default (diff) => {
   const iter = (tree, parent) => tree.flatMap((node) => {
     const path = [...parent, node.key].join('.');
 
@@ -30,4 +30,3 @@ const makePlain = (diff) => {
 
   return iter(diff, []).join('\n');
 };
-export default makePlain;

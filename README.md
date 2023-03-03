@@ -7,3 +7,4 @@
 * [Пример работы с плоскими структурами (форматер stylish)](https://asciinema.org/a/7hkwyG1GWWBrKHrQse6WlL7rE)
 * [Пример работы с вложенными структурами (форматер stylish)](https://asciinema.org/a/mzWBBda0ZtzVjiVIyErqJhLne)
 * [Пример работы с вложенными структурами (форматер plain)](https://asciinema.org/a/4VZUnbERgjQ8cNjZqNVlRk3tW)
+* [Пример работы с вложенными структурами (форматер json)](https://asciinema.org/a/gFzAGHISWMbh0jhk7q0lPnh5w)
