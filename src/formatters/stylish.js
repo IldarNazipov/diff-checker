@@ -31,7 +31,7 @@ export default (diff, indentChar = ' ') => {
         return [`${operatorIndent}${operators.deleted} ${node.key}: ${stringifyStylish(node.value1, depth, indentChar)}`,
           `${operatorIndent}${operators.added} ${node.key}: ${stringifyStylish(node.value2, depth, indentChar)}`].join('\n');
       case 'nested':
-        return `${indent}${node.key}: ${['{', ...iter(node.value, depth + 1), `${indent}}`].join('\n')}`;
+        return `${indent}${node.key}: ${['{', ...iter(node.children, depth + 1), `${indent}}`].join('\n')}`;
       default:
         throw new Error(`unknown state '${node.state}'.`);
     }

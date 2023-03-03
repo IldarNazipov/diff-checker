@@ -18,7 +18,7 @@ const compareObjects = (object1, object2) => {
     }
     if (_.isObject(object1[key]) && _.isObject(object2[key])) {
       return {
-        key, state: 'nested', value: compareObjects(object1[key], object2[key]),
+        key, state: 'nested', children: compareObjects(object1[key], object2[key]),
       };
     }
     if (object1[key] !== object2[key]) {
