@@ -33,7 +33,7 @@ export default (diff, indentChar = ' ') => {
       case 'nested':
         return `${indent}${node.key}: ${['{', ...iter(node.value, depth + 1), `${indent}}`].join('\n')}`;
       default:
-        throw new Error(`Error: unknown state '${node.state}'`);
+        throw new Error(`unknown state '${node.state}'.`);
     }
   });
 

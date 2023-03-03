@@ -24,7 +24,7 @@ export default (diff) => {
       case 'nested':
         return `${iter(node.value, [path]).join('\n')}`;
       default:
-        throw new Error(`Error: unknown state '${node.state}'`);
+        throw new Error(`unknown state '${node.state}'.`);
     }
   });
 

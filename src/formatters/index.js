@@ -12,5 +12,5 @@ export default (format, diff) => {
   if (format === 'json') {
     return makeJSON(diff);
   }
-  throw new Error(`unknown format '${format}', please try 'stylish' or 'plain'`);
+  throw new Error(`unknown format '${format}', only 'stylish', 'plain' and 'json' options are available.`);
 };
