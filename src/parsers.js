@@ -8,13 +8,13 @@ const readFile = (filepath) => {
 };
 
 const parse = (file, extension) => {
-  let parseMethod;
   if (extension === '.json') {
-    parseMethod = JSON.parse;
-  } else if (extension === '.yml' || extension === '.yaml') {
-    parseMethod = yaml.load;
+    return JSON.parse(file);
   }
-  return parseMethod(file);
+  if (extension === '.yml' || extension === '.yaml') {
+    return yaml.load(file);
+  }
+  throw new Error('not supported format');
 };
 
 export { parse, readFile };
