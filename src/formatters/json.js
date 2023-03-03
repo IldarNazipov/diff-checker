@@ -1,1 +1,1 @@
-export default (diff) => diff.map((item) => JSON.stringify(item)).join(',');
+export default (diff) => JSON.stringify(diff);
